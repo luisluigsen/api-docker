@@ -7,24 +7,23 @@ use App\Exception\User\UserNotFoundException;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 
-/**
- *
- */
+
 class UserRepository extends BaseRepository
 {
-
     protected static function entityClass(): string
     {
-        return UserRepository::class;
+        return User::class;
     }
-    public function findOneByEmail(string $email): User
+
+    public function findOneByEmailOrFail(string $email):User
     {
-         if (null === $user = $this->objectRepository->findOneBy(['email'=> $email]))
-         {
-             throw UserNotFoundException::fromEmail($email);
-         }
-         return $user;
+        if (null === $user = $this->objectRepository->findOneBy(['email' => $email])) {
+            throw UserNotFoundException::fromEmail($email);
+        }
+
+        return $user;
     }
+
     /**
      * @throws ORMException
      * @throws OptimisticLockException

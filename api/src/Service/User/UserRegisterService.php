@@ -20,7 +20,7 @@ class UserRegisterService
         $this->encoderService = $encoderService;
     }
 
-    public function create(Request $request):User
+    public function create(Request $request): User
     {
         $name = RequestService::getField($request, 'name');
         $email = RequestService::getField($request, 'email');
@@ -31,7 +31,7 @@ class UserRegisterService
 
         try {
             $this->userRepository->save($user);
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             throw UserAlreadyExistException::fromEmail($email);
         }
 
