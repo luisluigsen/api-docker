@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Api\Listenner;
+namespace App\Api\Listener;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
@@ -22,7 +22,7 @@ class JsonExceptionResponseTransformerListener
             $event->setResponse($this->prepareResponse($data, $data['code']));
         }
     }
-    public function  prepareResponse(array $data, int $statusCode): JsonResponse
+    private function  prepareResponse(array $data, int $statusCode): JsonResponse
     {
         $response = new JsonResponse($data, $statusCode);
         $response->headers->set('Server-Time', time());
